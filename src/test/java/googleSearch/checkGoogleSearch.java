@@ -2,6 +2,7 @@ package googleSearch;
 
 import googlePage.IssuePage;
 import googlePage.SearchPage;
+import helper.WebDriverLogger;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -9,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +26,24 @@ public class checkGoogleSearch {
     private static String request;
     private static SearchPage searchPage;
     private static IssuePage issuePage;
+    private static EventFiringWebDriver eventDriver;
+    public static WebDriverLogger webDriverLogger;
+
 
     @Before
     public void before() {
+        System.setProperty("java.util.logging.config.file", "logging.properties");
         System.setProperty("webdriver.gecko.driver", "C:\\geckodriver\\geckodriver.exe");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        searchPage = PageFactory.initElements(driver, SearchPage.class);
-        issuePage = PageFactory.initElements(driver, IssuePage.class);
+        eventDriver = new EventFiringWebDriver(driver);
+
+        webDriverLogger = new WebDriverLogger();
+        eventDriver.register(webDriverLogger);
+
+        searchPage = PageFactory.initElements(eventDriver, SearchPage.class);
+        issuePage = PageFactory.initElements(eventDriver, IssuePage.class);
+
     }
 
     public checkGoogleSearch(String request) {
@@ -48,18 +61,19 @@ public class checkGoogleSearch {
 
     @Test
     public void checkThatTitleContainsSearchedWord() throws InterruptedException {
-        driver.get("https://www.google.com");
+
+        eventDriver.get("https://www.google.com");
         searchPage.inputToSearchField(request);
         List<WebElement> issueReferences = issuePage.getIssueReferences();
         String href = issueReferences.get(0).getAttribute("href");
-        driver.get(href);
-        String title = driver.getTitle();
+        eventDriver.get(href);
+        String title = eventDriver.getTitle();
         assertThat(title).as(href + " title should contain 'automation'").containsIgnoringCase(request);
     }
 
     @Test
     public void checkSearchResultForContainsExpectedDomain() throws InterruptedException {
-        driver.get("https://www.google.com");
+        eventDriver.get("https://www.google.com");
         searchPage.inputToSearchField(request);
         List<String> hrefList = getSearchResultsList(5);
         boolean containsExpectedDomain = false;
@@ -87,6 +101,8 @@ public class checkGoogleSearch {
 
     @After
     public void after() {
+        eventDriver.unregister(webDriverLogger);
+        eventDriver.quit();
         driver.quit();
     }
 
