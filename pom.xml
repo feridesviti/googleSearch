@@ -35,7 +35,6 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
@@ -54,7 +53,6 @@
             <version>4.12</version>
             <scope>compile</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -70,6 +68,7 @@
                 <useSystemClassLoader>false</useSystemClassLoader>
             </configuration>
         </plugin>
+<<<<<<< HEAD
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -78,6 +77,8 @@
                 <target>6</target>
             </configuration>
         </plugin>
+=======
+>>>>>>> 61c4346e30ba50650798a21b56d9c5c43263251e
     </plugins>
     </build>
 
