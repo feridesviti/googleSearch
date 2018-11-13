@@ -31,9 +31,28 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.8.0-beta2</version>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>selenium-jupiter</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
@@ -45,10 +64,18 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>2.18.1</version>
             <configuration>
-                <parallel>methods</parallel>
-                <perCoreThreadCount>true</perCoreThreadCount>
-                <threadCount>2</threadCount>
+                <forkCount>4</forkCount>
+                <reuseForks>false</reuseForks>
+                <skip>false</skip>
                 <useSystemClassLoader>false</useSystemClassLoader>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>6</source>
+                <target>6</target>
             </configuration>
         </plugin>
     </plugins>
