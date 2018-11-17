@@ -1,15 +1,14 @@
 package com.googlePage;
 
 import com.helper.PageObject;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static java.lang.Thread.sleep;
 
 public class SearchPage extends PageObject {
-    private WebDriverWait wait = new WebDriverWait(driver, 90);
     public SearchPage(WebDriver driver) {
         super(driver);
     }

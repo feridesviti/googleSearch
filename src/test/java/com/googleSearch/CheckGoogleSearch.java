@@ -2,20 +2,23 @@ package com.googleSearch;
 
 import com.base.BaseTest;
 import com.googlePage.SearchPage;
+import com.helper.Parallelized;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(value = Parameterized.class)
-public class checkGoogleSearch extends BaseTest {
-    private String request;
-    private SearchPage searchPage = new SearchPage(eventDriver);
 
-    public checkGoogleSearch(String request) {
+@RunWith(Parallelized.class)
+public class CheckGoogleSearch extends BaseTest {
+    private String request;
+    private SearchPage searchPage;
+
+    public CheckGoogleSearch(String request) {
         this.request = request;
     }
 
@@ -30,6 +33,7 @@ public class checkGoogleSearch extends BaseTest {
 
     @Test
     public void checkThatTitleContainsSearchedWord() {
+        searchPage = new SearchPage(eventDriver);
         eventDriver.get("https://www.google.com");
         List<String> issueReferences = searchPage.inputToSearchField(request)
                 .confirmRequest()
@@ -42,6 +46,7 @@ public class checkGoogleSearch extends BaseTest {
 
     @Test
     public void checkSearchResultForContainsExpectedDomain(){
+        searchPage = new SearchPage(eventDriver);
         eventDriver.get("https://www.google.com");
         List<String> hrefList = searchPage.inputToSearchField(request)
                 .confirmRequest()

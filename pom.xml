@@ -8,6 +8,30 @@
     <artifactId>testingTask</artifactId>
     <version>1.0</version>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <parallel>methods</parallel>
+                    <threadCountMethods>3</threadCountMethods>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -47,39 +71,19 @@
             <artifactId>selenium-jupiter</artifactId>
             <version>2.2.0</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <scope>compile</scope>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
     </dependencies>
 
-    <build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.18.1</version>
-            <configuration>
-                <forkCount>4</forkCount>
-                <reuseForks>false</reuseForks>
-                <skip>false</skip>
-                <useSystemClassLoader>false</useSystemClassLoader>
-            </configuration>
-        </plugin>
-<<<<<<< HEAD
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>6</source>
-                <target>6</target>
-            </configuration>
-        </plugin>
-=======
->>>>>>> 61c4346e30ba50650798a21b56d9c5c43263251e
-    </plugins>
-    </build>
 
 </project>

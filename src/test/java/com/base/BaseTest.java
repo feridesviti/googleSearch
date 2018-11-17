@@ -2,22 +2,22 @@ package com.base;
 
 import com.helper.WebDriverLogger;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.openqa.selenium.WebDriver;
+import org.junit.runners.Parameterized;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
-    protected static WebDriver driver;
-    protected static EventFiringWebDriver eventDriver;
-    private static WebDriverLogger webDriverLogger;
+    public WebDriver driver;
+    public EventFiringWebDriver eventDriver;
+    private WebDriverLogger webDriverLogger;
 
-    @BeforeClass
-    public static void beforeClass() {
+    @Before
+    public void before() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -26,9 +26,10 @@ public class BaseTest {
         eventDriver.register(webDriverLogger);
     }
 
-    @AfterClass
-    public static void afterClass(){
+    @After
+    public void after(){
         eventDriver.unregister(webDriverLogger);
+        driver.quit();
         eventDriver.quit();
     }
 }

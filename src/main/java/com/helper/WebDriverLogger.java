@@ -11,7 +11,7 @@ public class WebDriverLogger extends AbstractWebDriverEventListener {
 
     private static final Logger Log = Logger.getLogger(WebDriverLogger.class.getName());
     public WebDriverLogger(){
-        String log4jConfPath = "src\\test\\java\\resources\\log4j.properties";
+        String log4jConfPath = "src/test/java/resources/log4j.properties";
         PropertyConfigurator.configure(log4jConfPath);
     }
     @Override
